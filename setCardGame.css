@@ -1,0 +1,50 @@
+#setTable {
+    border:1px solid black;
+    text-align:center;
+}
+#setTable img {
+    height:250px;
+    width:175px;
+    margin:10px;
+    border:1px solid #999;
+    cursor:pointer;
+}
+#noSetsButton {
+    border:1px solid black;
+    width:75px;
+    text-align:center;
+    margin:10px;
+    padding:3px;
+    background-color: blue;
+    cursor:pointer;
+    padding: 5.5px 11px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-family: Georgia, serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.button {
+    border-top: 1px solid #96d1f8;
+    background: #3e779d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+    background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+    padding: 5px 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: black 0 1px 0;
+    -moz-box-shadow: black 0 1px 0;
+    box-shadow: black 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+body {
+    background-color: #ccc;
+}
