@@ -7,3 +7,7 @@ So, a set could have all red, all diamonds, but 1,2,3 as the numbers, and three 
 The dealer deals out 9 cards at a time, and you keep going until the deck is out.
 
 This version lets up to six people play at once, each person has a key on the keyboard that signals that they have called "SET!" Check it out here: http://iknowthings.org/setCardGame.html
+
+Features I would like to add: 
+ - sound, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
+ - the ability for people to play on different devices - not really sure how this would work.
