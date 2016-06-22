@@ -1,50 +1,125 @@
 #setTable {
-    border:1px solid black;
-    text-align:center;
+  border: 1px solid black;
+  text-align: center;
+  display: none;
 }
+
 #setTable img {
-    height:250px;
-    width:175px;
-    margin:10px;
-    border:1px solid #999;
-    cursor:pointer;
+  height: 250px;
+  width: 175px;
+  margin: 10px;
+  border: 1px solid #999;
+  cursor: pointer;
 }
+
+#setTable img.hilit {
+  border: 3px yellow solid !important;
+}
+
+#playerNames .setButton {
+  cursor: pointer;
+  background-color: darkcyan;
+  width: 120px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: larger;
+  float: left;
+  margin: 15px;
+}
+
+#playerNames .setButton .score {
+  color: yellow;
+}
+
+#beginGame {
+  border: 1px solid black;
+  width: 75px;
+  text-align: center;
+  margin: 10px;
+  padding: 3px;
+  background-color: blue;
+  cursor: pointer;
+  padding: 5.5px 11px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-family: Georgia, serif;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
 #noSetsButton {
-    border:1px solid black;
-    width:75px;
-    text-align:center;
-    margin:10px;
-    padding:3px;
-    background-color: blue;
-    cursor:pointer;
-    padding: 5.5px 11px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    font-family: Georgia, serif;
-    text-decoration: none;
-    vertical-align: middle;
+  display: none;
+  float: left;
+  border: 1px solid black;
+  width: 75px;
+  text-align: center;
+  margin: 30px 0 0 20px;
+  padding: 3px;
+  background-color: black;
+  cursor: pointer;
+  padding: 5.5px 11px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-family: Georgia, serif;
+  text-decoration: none;
+  vertical-align: middle;
 }
+
 .button {
-    border-top: 1px solid #96d1f8;
-    background: #3e779d;
-    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
-    background: -moz-linear-gradient(top, #65a9d7, #3e779d);
-    padding: 5px 10px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow: black 0 1px 0;
-    -moz-box-shadow: black 0 1px 0;
-    box-shadow: black 0 1px 0;
-    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    color: white;
-    font-size: 14px;
-    text-decoration: none;
-    vertical-align: middle;
+  border-top: 1px solid #96d1f8;
+  background: #3e779d;
+  background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+  background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+  padding: 5px 10px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: black 0 1px 0;
+  -moz-box-shadow: black 0 1px 0;
+  box-shadow: black 0 1px 0;
+  text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  vertical-align: middle;
 }
+
+#gameMessageBox {
+  background-color: #fff;
+  color: #333;
+  font-size: small;
+  line-height: 200%;
+  margin: 10px;
+  padding: 20px;
+  width: auto;
+  height: 15px;
+  overflow: hidden;
+  float: left;
+  display: none;
+}
+
+#gameMessageBox .singleMsg:first-child {
+  font-weight: bold;
+  color: black;
+  font-size: large;
+}
+
+#cardCounts {
+  background: none repeat scroll 0 0 #eee;
+  padding: 4px;
+  position: absolute;
+  right: 20px;
+  text-align: right;
+  top: 0;
+}
+
 body {
-    background-color: #ccc;
+  background-color: #ccc;
 }
