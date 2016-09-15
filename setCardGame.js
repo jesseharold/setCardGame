@@ -345,7 +345,7 @@ function showMessage(msg) {
 function init() {
   populateDeck();
   shuffle(myDeck);
-  displayTable();
+  displayTable(); 
   addListeners();
 }
 jQuery(document).ready(init);
