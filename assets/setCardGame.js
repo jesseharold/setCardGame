@@ -1,9 +1,10 @@
-var clrs = ["red", "green", "purple"];
+var colors = ["red", "green", "purple"];
 var fills = ["solid", "empty", "striped"];
 var shapes = ["diamond", "oval", "s"];
 var numbers = [1, 2, 3];
 
 var myDeck = [];
+var unshuffledDeck = [];
 var myTable = [];
 var players = [];
 var activePlayer = 10; //zero-indexed
@@ -42,16 +43,21 @@ function addSetButton(id){
 }
 
 function populateDeck() {
+  var deckLocation = 0;
   for (var i = 0; i < 3; i++) { //create the colors
     for (var j = 0; j < 3; j++) { //create the fills
       for (var k = 0; k < 3; k++) { //create the shapes
         for (var m = 0; m < 3; m++) { //create the nums
-          myDeck.push({
-            clr: clrs[i],
+          var newCard = {
+            color: colors[i],
             fill: fills[j],
             shape: shapes[k],
-            number: numbers[m]
-          });
+            number: numbers[m],
+            id: deckLocation
+          }
+          unshuffledDeck.push(newCard);
+          myDeck.push(newCard);
+          deckLocation++;
         }
       }
     }
@@ -83,11 +89,17 @@ function dealRow() {
   if (myDeck.length > 0) {
     myTable.push(myDeck.pop());
     displayTable();
+  } else {
+    deckIsOut = true;
   }
+
   if (myDeck.length > 0) {
     myTable.push(myDeck.pop());
     displayTable();
+  } else {
+    deckIsOut = true;
   }
+
   if (myDeck.length > 0) {
     myTable.push(myDeck.pop());
     displayTable();
@@ -114,12 +126,17 @@ function checkStacks() {
 
 function displayTable() {
   //clear table
-  $('#setTable').html("").show();
+  $("#setTable").html("").show();
   //cycle through table array
   for (var c = 0; c < myTable.length; c++) {
     //create an image with proper src
-    var thisCardSrc = baseImgURL + myTable[c].clr + myTable[c].fill + myTable[c].shape + myTable[c].number + '.png';
-    $('#setTable').append('<img class="card" id="' + c + '" src="' + thisCardSrc + '" />');
+    var thisCardSrc = baseImgURL + myTable[c].color + myTable[c].fill + myTable[c].shape + myTable[c].number + '.png';
+    var newImage = $("<img>")
+      .addClass("card")
+      .attr("id", c)
+      .attr("src", thisCardSrc)
+      .data("deckLocation", myTable[c].id);
+    $("#setTable").append(newImage);
   }
 }
 
@@ -148,57 +165,6 @@ function guessCard(thisCard){
     } //check for existence of activeplayer
 }
 
-function addListeners() {
-  $("#setTable").on("click", "img", function() {
-    guessCard($(this));
-  });
-
-  $("#noSetsButton").click(checkTableforSets);
-
-  $("#beginGame").click(function() {
-    $("#instructions").addClass("collapsed");
-    processPlayerNames();
-    $("#noSetsButton").show();
-    $("#playerNames").hide();
-    $(this).hide();
-    dealRow();
-  });
-
-  $("#gameControls").on("click", "div.setButton", function() {
-    activePlayer = $(this).data("playerId");
-    showMessage("SET called by " + players[activePlayer].name);
-  });
-
-  $(document).keypress(function(e) {
-    switch (e.which) {
-      // user presses the "z"
-      case 122:
-        doSetCall(0);
-        break;
-        // user presses the "p"
-      case 112:
-        doSetCall(1);
-        break;
-        // user presses the "q"
-      case 113:
-        doSetCall(2);
-        break;
-        // user presses the "m"
-      case 109:
-        doSetCall(3);
-        break;
-        // user presses the "7"
-      case 55:
-        doSetCall(4);
-        break;
-        // user presses the "3"
-      case 51:
-        doSetCall(5);
-        break;
-    }
-  });
-}
-
 function doSetCall(pIndex) {
   //test to make sure gameplay has started
   if (myTable.length > 7) {
@@ -217,30 +183,31 @@ function runSetTest(theseThree) { //returns boolean
   var score = 0;
   //for each attribute, are they all the same? if yes, add a point for each one
   //for each attribute are they all different? a point for each
-
+  //console.log(theseThree);
   //color
-  if (theseThree[0].clr == theseThree[1].clr && theseThree[1].clr == theseThree[2].clr) {
+  console.log(theseThree[0].data, theseThree[1].data, theseThree[2].data);
+  if (theseThree[0].data.color == theseThree[1].data.color && theseThree[1].data.color == theseThree[2].data.color) {
     //console.log("color is all the same");
     score++;
-  } else if (theseThree[0].clr != theseThree[1].clr && theseThree[1].clr != theseThree[2].clr && theseThree[0].clr != theseThree[2].clr) {
+  } else if (theseThree[0].data.color != theseThree[1].data.color && theseThree[1].data.color != theseThree[2].data.color && theseThree[0].data.color != theseThree[2].data.color) {
     //console.log("color is all different");
     score++;
   }
 
   //shape
-  if (theseThree[0].shape == theseThree[1].shape && theseThree[1].shape == theseThree[2].shape) {
+  if (theseThree[0].data.shape == theseThree[1].data.shape && theseThree[1].data.shape == theseThree[2].data.shape) {
     //console.log("shape is all the same");
     score++;
-  } else if (theseThree[0].shape != theseThree[1].shape && theseThree[1].shape != theseThree[2].shape && theseThree[0].shape != theseThree[2].shape) {
+  } else if (theseThree[0].data.shape != theseThree[1].data.shape && theseThree[1].data.shape != theseThree[2].data.shape && theseThree[0].data.shape != theseThree[2].data.shape) {
     //console.log("shape is all different");
     score++;
   }
 
   //fill
-  if (theseThree[0].fill == theseThree[1].fill && theseThree[1].fill == theseThree[2].fill) {
+  if (theseThree[0].data.fill == theseThree[1].data.fill && theseThree[1].data.fill == theseThree[2].data.fill) {
     //console.log("fill is all the same");
     score++;
-  } else if (theseThree[0].fill != theseThree[1].fill && theseThree[1].fill != theseThree[2].fill && theseThree[0].fill != theseThree[2].fill) {
+  } else if (theseThree[0].data.fill != theseThree[1].data.fill && theseThree[1].data.fill != theseThree[2].data.fill && theseThree[0].data.fill != theseThree[2].data.fill) {
     //console.log("fill is all different");
     score++;
   }
@@ -348,6 +315,57 @@ function showMessage(msg) {
   setTimeout(function(){
     msgbxJ.fadeOut(1500);
   }, 2000);
+}
+
+function addListeners() {
+  $("#setTable").on("click", "img", function() {
+    guessCard($(this));
+  });
+
+  $("#noSetsButton").click(checkTableforSets);
+
+  $("#beginGame").click(function() {
+    $("#instructions").addClass("collapsed");
+    processPlayerNames();
+    $("#noSetsButton").show();
+    $("#playerNames").hide();
+    $(this).hide();
+    dealRow();
+  });
+
+  $("#gameControls").on("click", "div.setButton", function() {
+    activePlayer = $(this).data("playerId");
+    showMessage("SET called by " + players[activePlayer].name);
+  });
+
+  $(document).keypress(function(e) {
+    switch (e.which) {
+      // user presses the "z"
+      case 122:
+        doSetCall(0);
+        break;
+        // user presses the "p"
+      case 112:
+        doSetCall(1);
+        break;
+        // user presses the "q"
+      case 113:
+        doSetCall(2);
+        break;
+        // user presses the "m"
+      case 109:
+        doSetCall(3);
+        break;
+        // user presses the "7"
+      case 55:
+        doSetCall(4);
+        break;
+        // user presses the "3"
+      case 51:
+        doSetCall(5);
+        break;
+    }
+  });
 }
 
 function init() {
