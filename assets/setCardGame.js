@@ -11,29 +11,33 @@ var testMeForSet = [];
 var baseImgURL = "http://www.kneesandtoes.org/images/setgamecards/";
 var deckIsOut = false;
 var keystrokes = ["Z", "P", "Q", "M", "7", "3"]; //players can hit these instead of clicking button
+var buttoncolors = ["coral", "lightgreen", "#dcdc1e", "#f77474", "lightblue", "violet"]; //
 
 function processPlayerNames() {
-  var inputsJ = $("#playerNames>input");
-  for (var p = 0; p < inputsJ.length; p++) {
-    var thisName = $(inputsJ[p]).val();
-    if (thisName.length > 0) {
+  $("#playerNames input").each(function(index, value){
+    //console.log("processing " + $(value));
+    var thisName = $(value).val();
+    if (thisName.trim().length > 0) {
       players.push({
         name: thisName,
         score: 0,
-        keyLetter: keystrokes[p],
+        keyLetter: keystrokes[index],
         pile: []
       });
-      addSetButton(p);
+      addSetButton(players.length-1);
     }
-  }
+  });
 }
 
 function addSetButton(id){
-    var playerButton = $(div)
+    var playerButton = $("<div>")
       .addClass("setButton")
+      .addClass("button")
       .attr("id", "player" + (id+1) + "SET")
-      .html("SET!<br>" + thisName +"(" + keystrokes[p] + ")");
-    playerButton.append('<div class="score" id="scoreBoard' + p + '">cards: 0</div>');
+      .html("<h4>SET!</h4>" + players[id].name + " ( " + keystrokes[id] + " )")
+      .css("background-color", buttoncolors[id]);
+    var score = $('<div class="score" id="scoreBoard' + id + '">cards: 0</div>');
+    playerButton.append(score);
     $("#gameControls").append(playerButton);
 }
 
@@ -103,7 +107,7 @@ function checkStacks() {
   var countML = myDeck.length + " cards left in deck<br>";
   var instructionsLink = '<a class="howToPlay" target="_blank">How to play</a>.';
   for (var i = 0; i < players.length; i++) {
-    $("#playerNames #scoreBoard" + i).html("cards: " + players[i].pile.length);
+    //$("#playerNames #scoreBoard" + i).html("cards: " + players[i].pile.length);
   }
   $("#cardCounts").html(countML + instructionsLink);
 }
@@ -160,7 +164,7 @@ function addListeners() {
     dealRow();
   });
 
-  $("#playerNames").on("click", "div.setButton", function() {
+  $("#gameControls").on("click", "div.setButton", function() {
     activePlayer = $(this).index();
     showMessage("SET called by " + players[activePlayer].name);
   });
