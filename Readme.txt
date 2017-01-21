@@ -16,7 +16,6 @@ If all players agree that there are no SETs on the board, click the black button
 
 This version lets up to six people play at once. 
 
-Check it out here: http://iknowthings.org/setCardGame.html
 
 Features I would like to add: 
  - add solo mode where you try and beat a total time to clear the deck

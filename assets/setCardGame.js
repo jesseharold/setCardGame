@@ -5,7 +5,6 @@ var numbers = [1, 2, 3];
 
 var myDeck = [];
 var myTable = [];
-//var myPile = [];
 var players = [];
 var activePlayer = 10; //zero-indexed
 var testMeForSet = [];
@@ -14,21 +13,28 @@ var deckIsOut = false;
 var keystrokes = ["Z", "P", "Q", "M", "7", "3"]; //players can hit these instead of clicking button
 
 function processPlayerNames() {
-  var inputsJ = jQuery("#playerNames>input");
-  var buttonsCode = "";
+  var inputsJ = $("#playerNames>input");
   for (var p = 0; p < inputsJ.length; p++) {
-    var thisName = jQuery(inputsJ[p]).val();
+    var thisName = $(inputsJ[p]).val();
     if (thisName.length > 0) {
       players.push({
         name: thisName,
         score: 0,
+        keyLetter: keystrokes[p],
         pile: []
       });
-      buttonsCode += '<div class="setButton" id="player' + players.length + 'SET">SET!<br>' + thisName + ' (' + keystrokes[p] + ')<div class="score" id="scoreBoard' + p + '">cards: 0</div></div>';
+      addSetButton(p);
     }
   }
-  jQuery("#playerNames").html(buttonsCode);
+}
 
+function addSetButton(id){
+    var playerButton = $(div)
+      .addClass("setButton")
+      .attr("id", "player" + (id+1) + "SET")
+      .html("SET!<br>" + thisName +"(" + keystrokes[p] + ")");
+    playerButton.append('<div class="score" id="scoreBoard' + p + '">cards: 0</div>');
+    $("#gameControls").append(playerButton);
 }
 
 function populateDeck() {
@@ -49,22 +55,19 @@ function populateDeck() {
 }
 
 function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue, randomIndex;
+  var currentIndex = array.length;
+  var temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
+  while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
-
     // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 
@@ -98,16 +101,15 @@ function dealRow() {
 
 function checkStacks() {
   var countML = myDeck.length + " cards left in deck<br>";
-  var instructionsLink = '<a href="instructions.html" target="_blank">How to play</a>.';
+  var instructionsLink = '<a class="howToPlay" target="_blank">How to play</a>.';
   for (var i = 0; i < players.length; i++) {
-    jQuery("#playerNames #scoreBoard" + i).html("cards: " + players[i].pile.length);
+    $("#playerNames #scoreBoard" + i).html("cards: " + players[i].pile.length);
   }
-  jQuery("#cardCounts").html(countML + instructionsLink);
+  $("#cardCounts").html(countML + instructionsLink);
 }
 
 function displayTable() {
   //clear table
-
   $('#setTable').html("").show();
   //cycle through table array
   for (var c = 0; c < myTable.length; c++) {
@@ -117,19 +119,16 @@ function displayTable() {
   }
 }
 
-function addListeners() {
-  jQuery("#setTable").on("click", "img", function() {
+function guessCard(thisCard){
     if (!players[activePlayer]) { //check for existence of activeplayer
       showMessage("You have to call a set before clicking on a card.");
     } else {
-
-      var thisCard = myTable[$(this).attr("id")];
-      if (jQuery(this).hasClass("hilit")) { // if that card has already been selected
-        showMessage("Sorry, you can't un-click.");
+      if (thisCard.hasClass("hilit")) { // if that card has already been selected
+        showMessage("Sorry, you can't un-click a selected card.");
       } else {
         //add this card to testme array
         testMeForSet.push(thisCard);
-        jQuery(this).addClass("hilit");
+        thisCard.addClass("hilit");
         //if testme array has 3 cards in it, run test on it
         if (testMeForSet.length === 3) {
           if (runSetTest(testMeForSet) === true) {
@@ -143,22 +142,30 @@ function addListeners() {
         }
       }
     } //check for existence of activeplayer
+}
+
+function addListeners() {
+  $("#setTable").on("click", "img", function() {
+    guessCard($(this));
   });
 
-  jQuery("#noSetsButton").click(checkTableforSets);
+  $("#noSetsButton").click(checkTableforSets);
 
-  jQuery("#beginGame").click(function() {
+  $("#beginGame").click(function() {
+    $("#instructions").addClass("collapsed");
     processPlayerNames();
-    jQuery("#noSetsButton").show();
-    jQuery(this).hide();
+    $("#noSetsButton").show();
+    $("#playerNames").hide();
+    $(this).hide();
     dealRow();
   });
 
-  jQuery("#playerNames").on("click", "div.setButton", function() {
-    activePlayer = jQuery(this).index();
+  $("#playerNames").on("click", "div.setButton", function() {
+    activePlayer = $(this).index();
     showMessage("SET called by " + players[activePlayer].name);
   });
-  jQuery(document).keypress(function(e) {
+
+  $(document).keypress(function(e) {
     switch (e.which) {
       // user presses the "z"
       case 122:
@@ -186,7 +193,6 @@ function addListeners() {
         break;
     }
   });
-
 }
 
 function doSetCall(pIndex) {
@@ -199,14 +205,12 @@ function doSetCall(pIndex) {
 
 function clearCurrentSet() {
   testMeForSet.length = 0;
-  jQuery("#setTable img").removeClass("hilit");
+  $("#setTable img").removeClass("hilit");
   activePlayer = 10; //default value
 }
 
 function runSetTest(theseThree) { //returns boolean
   var score = 0;
-
-
   //for each attribute, are they all the same? if yes, add a point for each one
   //for each attribute are they all different? a point for each
 
@@ -338,8 +342,12 @@ function endOfGame() {
 }
 
 function showMessage(msg) {
-  var msgbxJ = jQuery("#gameMessageBox").show();
-  msgbxJ.prepend("<div class='singleMsg'>" + msg + "</div>");
+  var msgbxJ = $("#gameMessageBox").show();
+  msgbxJ.text(msg);
+  console.log(msg);
+  setTimeout(function(){
+    msgbxJ.fadeOut(1500);
+  }, 2000);
 }
 
 function init() {
@@ -348,4 +356,4 @@ function init() {
   displayTable(); 
   addListeners();
 }
-jQuery(document).ready(init);
+$(document).ready(init);
