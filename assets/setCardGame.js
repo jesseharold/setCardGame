@@ -33,7 +33,7 @@ function addSetButton(id){
     var playerButton = $("<div>")
       .addClass("setButton")
       .addClass("button")
-      .attr("id", "player" + (id+1) + "SET")
+      .data("playerId", id)
       .html("<h4>SET!</h4>" + players[id].name + " ( " + keystrokes[id] + " )")
       .css("background-color", buttoncolors[id]);
     var score = $('<div class="score" id="scoreBoard' + id + '">cards: 0</div>');
@@ -165,7 +165,7 @@ function addListeners() {
   });
 
   $("#gameControls").on("click", "div.setButton", function() {
-    activePlayer = $(this).index();
+    activePlayer = $(this).data("playerId");
     showMessage("SET called by " + players[activePlayer].name);
   });
 
