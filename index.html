@@ -2,38 +2,74 @@
 
   <head>
     <title>SET -- play online</title>
-    <link rel="stylesheet" type="text/css" href="setCardGame.css" />
+    <link rel="stylesheet" type="text/css" href="assets/setCardGame.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script language="javascript" src="setCardGame.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two|Raleway" rel="stylesheet">
   </head>
-
   <body>
-    <div id="playerNames">
-      Player 1:
-      <input type="text" id="player1" />
-      <br>
-      Player 2:
-      <input type="text" id="player2" />
-      <br>
-      Player 3:
-      <input type="text" id="player3" />
-      <br>
-      Player 4:
-      <input type="text" id="player4" />
-      <br>
-      Player 5:
-      <input type="text" id="player5" />
-      <br>
-      Player 6:
-      <input type="text" id="player6" />
-      <br>
+    <div class="container">
+      <h1>Play SET!</h1>
+      <div id="instructions">
+        <h2>Instructions</h2>
+        <div class="container">
+        To play Set, you search a grid of face-up cards to try and find a <strong>SET of three cards</strong> before your opponents.
+        <br><br>
+        <h3>What is a SET?</h3>
+        A set is three cards where each card attribute is <strong>either all the same or all different</strong>. <br>
+        Card attributes are: color, shape, number of shapes, and fill.
+        <br><br>
+        So, a set could have all red, all diamonds, but 1,2,3 as the numbers, and all three different fills. 
+        <br><br>
+        A set can't ever have two greens and one red, or two solid fills and one empty fill. Each feature has to be all the same, or all different.
+        <br><br>
+        <h3>How to Play</h3>
+        The computer deals out 9 cards at a time.<br><br>
+        When you see a SET of three, shout out "SET!" and hit the button or key associated with your name on the screen. 
+        <br><br>
+        Then immediately click on the three cards that make up a SET. You must hit the button to call the set before you click on the cards.
+        <br><br>
+        If you're right, you keep the cards and get three points. If you're wrong, you lose one point.
+        <br><br>
+        The dealer will deal three more cards, you keep going until the deck is out.
+        <br><br>
+        If all players agree that there are no legitimate SETs on the board, click the black button that says "No Sets on the Board." If you're right, the dealer will add more cards to the grid, but you'd be surprised how easy it is to miss one!
+        <br><br>
+        You can practice by yourself and try to beat your best time, or up to six people can play at once, sharing a screen and keyboard to call sets. 
+        </div>
+      </div>
+      <div id="playerNames">
+        <h2>Enter the names of all players to begin the game</h2>
+        <div class="container">
+        Player 1:
+        <input type="text" id="player1" />
+        <br>
+        Player 2:
+        <input type="text" id="player2" />
+        <br>
+        Player 3:
+        <input type="text" id="player3" />
+        <br>
+        Player 4:
+        <input type="text" id="player4" />
+        <br>
+        Player 5:
+        <input type="text" id="player5" />
+        <br>
+        Player 6:
+        <input type="text" id="player6" />
+        <br>
+        <div id="beginGame" class="button">Begin Game!</div>
+        </div>
+      </div>
+      <div id="gameControls">
+        <div id="noSetsButton">No Sets on Table</div>
+        <div id="gameMessageBox"></div>
+      </div>
+      <br clear="all" />
+      <div id="cardCounts"></div>
+      <div id="setTable"></div>
     </div>
-    <div id="beginGame">Begin Game!</div>
-    <div id="noSetsButton">No Sets on Table</div>
-    <div id="gameMessageBox"></div>
-    <br clear="all" />
-    <div id="cardCounts"></div>
-    <div id="setTable"></div>
+    <script language="javascript" src="assets/setCardGame.js"></script>
   </body>
 
 </html>
