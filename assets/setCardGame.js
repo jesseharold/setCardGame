@@ -88,7 +88,7 @@ function dealRow() {
     myTable.push(myDeck.pop());
     displayTable();
   } else {
-    endOfDeck();
+    deckIsOut = true;
   }
 
   //if there are still fewer than 9 cards on table, deal another row
@@ -319,10 +319,6 @@ function checkTableforSets() {
     }
   }
 
-}
-
-function endOfDeck() {
-  deckIsOut = true;
 }
 
 function endOfGame() {

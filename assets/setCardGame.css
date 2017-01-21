@@ -75,7 +75,6 @@ input {
   color: yellow;
 }
 #setTable {
-  border: 1px solid black;
   text-align: center;
   display: none;
 }
