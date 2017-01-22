@@ -148,7 +148,8 @@ function guessCard(thisCard){
         showMessage("Sorry, you can't un-click a selected card.");
       } else {
         //add this card to testme array
-        testMeForSet.push(thisCard);
+        var cardData = myTable[parseInt(thisCard.attr("id"))];
+        testMeForSet.push(cardData);
         thisCard.addClass("hilit");
         //if testme array has 3 cards in it, run test on it
         if (testMeForSet.length === 3) {
@@ -179,50 +180,47 @@ function clearCurrentSet() {
   activePlayer = 10; //default value
 }
 
-function runSetTest(theseThree) { //returns boolean
+function runSetTest(cards) { //returns boolean
   var score = 0;
   //for each attribute, are they all the same? if yes, add a point for each one
   //for each attribute are they all different? a point for each
-  //console.log(theseThree);
-  //color
-  console.log(theseThree[0].data, theseThree[1].data, theseThree[2].data);
-  if (theseThree[0].data.color == theseThree[1].data.color && theseThree[1].data.color == theseThree[2].data.color) {
+  //console.log(cards[0], cards[1], cards[2]);
+  if (cards[0].color === cards[1].color && cards[1].color === cards[2].color) {
     //console.log("color is all the same");
     score++;
-  } else if (theseThree[0].data.color != theseThree[1].data.color && theseThree[1].data.color != theseThree[2].data.color && theseThree[0].data.color != theseThree[2].data.color) {
+  } else if (cards[0].color != cards[1].color && cards[1].color != cards[2].color && cards[0].color != cards[2].color) {
     //console.log("color is all different");
     score++;
   }
 
   //shape
-  if (theseThree[0].data.shape == theseThree[1].data.shape && theseThree[1].data.shape == theseThree[2].data.shape) {
+  if (cards[0].shape === cards[1].shape && cards[1].shape === cards[2].shape) {
     //console.log("shape is all the same");
     score++;
-  } else if (theseThree[0].data.shape != theseThree[1].data.shape && theseThree[1].data.shape != theseThree[2].data.shape && theseThree[0].data.shape != theseThree[2].data.shape) {
+  } else if (cards[0].shape != cards[1].shape && cards[1].shape != cards[2].shape && cards[0].shape != cards[2].shape) {
     //console.log("shape is all different");
     score++;
   }
 
   //fill
-  if (theseThree[0].data.fill == theseThree[1].data.fill && theseThree[1].data.fill == theseThree[2].data.fill) {
+  if (cards[0].fill === cards[1].fill && cards[1].fill === cards[2].fill) {
     //console.log("fill is all the same");
     score++;
-  } else if (theseThree[0].data.fill != theseThree[1].data.fill && theseThree[1].data.fill != theseThree[2].data.fill && theseThree[0].data.fill != theseThree[2].data.fill) {
+  } else if (cards[0].fill != cards[1].fill && cards[1].fill != cards[2].fill && cards[0].fill != cards[2].fill) {
     //console.log("fill is all different");
     score++;
   }
 
   //number
-  if (theseThree[0].number == theseThree[1].number && theseThree[1].number == theseThree[2].number) {
+  if (cards[0].number === cards[1].number && cards[1].number === cards[2].number) {
     //console.log("number is all the same");
     score++;
-  } else if (theseThree[0].number != theseThree[1].number && theseThree[1].number != theseThree[2].number && theseThree[0].number != theseThree[2].number) {
+  } else if (cards[0].number != cards[1].number && cards[1].number != cards[2].number && cards[0].number != cards[2].number) {
     //console.log("number is all different");
     score++;
   }
 
-  //if score is 4, remove these from table, add to pile;
-
+  //if score is 4 (4 attributes), SET checks out
   if (score == 4) {
     return true;
   } else {
@@ -232,6 +230,7 @@ function runSetTest(theseThree) { //returns boolean
 
 function doFoundaSet(theseThree) {
   showMessage("Correct, " + players[activePlayer].name + "!");
+  // remove these cards from table, add to player's pile
   theseThree.forEach(function(setCard) {
     players[activePlayer].pile.push(setCard);
     var b = myTable.indexOf(setCard);
@@ -309,7 +308,7 @@ function endOfGame() {
 }
 
 function showMessage(msg) {
-  var msgbxJ = $("#gameMessageBox").show();
+  var msgbxJ = $("#gameMessageBox").fadeIn();
   msgbxJ.text(msg);
   console.log(msg);
   setTimeout(function(){
