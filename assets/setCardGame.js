@@ -119,7 +119,7 @@ function checkStacks() {
   var countML = myDeck.length + " cards left in deck<br>";
   var instructionsLink = '<a class="howToPlay" target="_blank">How to play</a>.';
   for (var i = 0; i < players.length; i++) {
-    //$("#playerNames #scoreBoard" + i).html("cards: " + players[i].pile.length);
+    $("#gameControls #scoreBoard" + i).html("cards: " + players[i].pile.length);
   }
   $("#cardCounts").html(countML + instructionsLink);
 }
