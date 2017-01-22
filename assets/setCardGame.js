@@ -86,42 +86,21 @@ function dealRow() {
   activePlayer = 10; //default value
   clearCurrentSet();
   //pop three cards off deck and push to table array
-  if (myDeck.length > 0) {
+  while (myDeck.length > 0 && myTable.length < 9) {
     myTable.push(myDeck.pop());
-    displayTable();
-  } else {
+  }
+  if (myDeck.length === 0){
     deckIsOut = true;
   }
-
-  if (myDeck.length > 0) {
-    myTable.push(myDeck.pop());
-    displayTable();
-  } else {
-    deckIsOut = true;
-  }
-
-  if (myDeck.length > 0) {
-    myTable.push(myDeck.pop());
-    displayTable();
-  } else {
-    deckIsOut = true;
-  }
-
-  //if there are still fewer than 9 cards on table, deal another row
-  if (myTable.length < 9 && !deckIsOut) {
-    dealRow();
-  } else {
-    checkStacks();
-  }
+  displayTable();
+  showCardCounts();
 }
 
-function checkStacks() {
-  var countML = myDeck.length + " cards left in deck<br>";
-  var instructionsLink = '<a class="howToPlay" target="_blank">How to play</a>.';
+function showCardCounts() {
   for (var i = 0; i < players.length; i++) {
     $("#gameControls #scoreBoard" + i).html("cards: " + players[i].pile.length);
   }
-  $("#cardCounts").html(countML + instructionsLink);
+  $("#cardCounts .number").text(myDeck.length);
 }
 
 function displayTable() {
@@ -242,7 +221,7 @@ function doFoundaSet(theseThree) {
     dealRow();
   } else {
     displayTable();
-    checkStacks();
+    showCardCounts();
   }
 }
 
@@ -251,7 +230,7 @@ function doFlubbedaSet() {
     showMessage("That is not a set. You lose one card.");
     myDeck.push(players[activePlayer].pile.pop());
     shuffle(myDeck);
-    checkStacks();
+    showCardCounts();
   } else {
     showMessage("That is not a set.");
   }
@@ -324,9 +303,10 @@ function addListeners() {
   $("#noSetsButton").click(checkTableforSets);
 
   $("#beginGame").click(function() {
-    $("#instructions").addClass("collapsed");
     processPlayerNames();
+    $("#instructions").addClass("collapsed");
     $("#noSetsButton").show();
+    $("#cardCounts").show();
     $("#playerNames").hide();
     $(this).hide();
     dealRow();
@@ -338,7 +318,12 @@ function addListeners() {
   });
 
   $("#cardCounts").on("click", ".howToPlay", function() {
-    $("#instructions").toggleClass("collapsed");
+    $("#instructions").css("width", "100%").toggleClass("collapsed");
+    if ($("#instructions").hasClass("collapsed")){
+      $("#cardCounts .howToPlay").text("How to Play");
+    } else {
+      $("#cardCounts .howToPlay").text("Close Instructions");
+    }
   });
 
   $(document).keypress(function(e) {

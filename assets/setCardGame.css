@@ -83,6 +83,7 @@ input {
   right: 20px;
   text-align: right;
   top: 0;
+  display: none;
 }
 .howToPlay {
   text-decoration: underline;

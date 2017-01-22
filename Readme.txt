@@ -19,8 +19,8 @@ This version lets up to six people play at once.
 
 
 Features I would like to add: 
- - training mode, where it tells you why something isn't a set, and will give you a hint if you can't find the set on the table
- - add solo mode where you try and beat a total time to clear the deck - save hi scores in database
- - sounds, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
  - A timer once you hit the set button, you forfeit if you don't click three cards within 5 seconds or something
- - the ability for people to play on different devices - hook it up with firebase
+ - sounds, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
+ - training mode, where it tells you why something isn't a set, and will give you a hint if you can't find the set on the table
+ - add solo mode where you try and beat a total time to clear the deck - save hi scores in firebase
+ - the ability for people to play remotely from different devices - hook it up with firebase's session management, use rock paper scissors project as an example
