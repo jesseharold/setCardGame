@@ -23,4 +23,3 @@ Features I would like to add:
  - sound, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
  - A timer once you put the set button, you forfeit if you don't click three cards within 5 seconds or something
  - the ability for people to play on different devices - hook it up with firebase
- - show instructions at the outset, tweak styles
