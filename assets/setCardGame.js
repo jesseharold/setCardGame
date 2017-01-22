@@ -108,7 +108,7 @@ function dealRow() {
   }
 
   //if there are still fewer than 9 cards on table, deal another row
-  if (myTable.length < 9) {
+  if (myTable.length < 9 && !deckIsOut) {
     dealRow();
   } else {
     checkStacks();
