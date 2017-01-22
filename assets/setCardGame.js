@@ -338,6 +338,10 @@ function addListeners() {
     showMessage("SET called by " + players[activePlayer].name);
   });
 
+  $("#cardCounts").on("click", ".howToPlay", function() {
+    $("#instructions").toggleClass("collapsed");
+  });
+
   $(document).keypress(function(e) {
     switch (e.which) {
       // user presses the "z"

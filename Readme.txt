@@ -1,4 +1,5 @@
  This is a javascript re-creation of my favorite card game, SET!
+ http://jesseharold.github.io/setCardGame/
 
 To play set, you search a grid of face-up cards to try and find a "SET" of three cards before your opponents.
 
