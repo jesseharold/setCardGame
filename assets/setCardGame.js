@@ -86,11 +86,10 @@ function dealRow() {
   activePlayer = 10; //default value
   clearCurrentSet();
   //pop three cards off deck and push to table array
-  while (myDeck.length > 0 && myTable.length < 9) {
+  var cardsDealt = 0;
+  while (myDeck.length > 0 && cardsDealt < 3) {
     myTable.push(myDeck.pop());
-  }
-  if (myDeck.length === 0){
-    deckIsOut = true;
+    cardsDealt++;
   }
   displayTable();
   showCardCounts();
@@ -309,7 +308,11 @@ function addListeners() {
     $("#cardCounts").show();
     $("#playerNames").hide();
     $(this).hide();
-    dealRow();
+    console.log(myTable.length);
+    while (myTable.length < 9){
+      console.log(myTable.length);
+      dealRow();
+    }
   });
 
   $("#gameControls").on("click", "div.setButton", function() {
