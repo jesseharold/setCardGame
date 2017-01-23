@@ -149,7 +149,7 @@ function doSetCall(pIndex) {
   //test to make sure gameplay has started
   if (myTable.length > 7) {
     activePlayer = pIndex;
-    showMessage("SET called by " + players[activePlayer].name);
+    showMessage("SET called by " + players[activePlayer].name, 7000);
   }
 }
 
@@ -226,14 +226,15 @@ function doFoundaSet(theseThree) {
   }
 }
 
-function doFlubbedaSet() {
+function doFlubbedaSet(msg) {
+  var reason = msg ? "That is not a valid set."
   if (players[activePlayer].pile.length > 0) {
-    showMessage("That is not a set. You lose one card.");
+    showMessage(reason + " You lose one card.");
     myDeck.push(players[activePlayer].pile.pop());
     shuffle(myDeck);
     showCardCounts();
   } else {
-    showMessage("That is not a set.");
+    showMessage(reason);
   }
   clearCurrentSet();
 }
@@ -287,13 +288,33 @@ function endOfGame() {
   }
 }
 
-function showMessage(msg) {
+function showMessage(msg, countdown) {
   var msgbxJ = $("#gameMessageBox").fadeIn();
   msgbxJ.text(msg);
   console.log(msg);
-  setTimeout(function(){
-    msgbxJ.fadeOut(1500);
-  }, 2000);
+  if (!countdown){
+    // just show the message
+    setTimeout(function(){
+      msgbxJ.fadeOut(1500);
+    }, 2000);
+  } else {
+    var secondsLeft = parseInt(countdown/1000);
+    //show message with a countdown timer
+    msgbxJ.append('<div class="countdown"><span class="number">' + secondsLeft + '</span> seconds left...</div>');
+    var findSetInterval = setInterval(function(){
+      secondsLeft--;
+      msgbxJ.find(".countdown .number").text(secondsLeft);
+      if (secondsLeft < 1){
+        clearInterval(findSetInterval);
+        msgbxJ.find(".countdown").hide();
+        if (players[activePlayer]){
+          // if there is still an active player, 
+          // that means they didn't finish their turn, and they are out of time
+          doFlubbedaSet("You ran out of time.");
+        }
+      }
+    }, 1000);
+  }
 }
 
 function addListeners() {
@@ -316,8 +337,7 @@ function addListeners() {
   });
 
   $("#gameControls").on("click", "div.setButton", function() {
-    activePlayer = $(this).data("playerId");
-    showMessage("SET called by " + players[activePlayer].name);
+    doSetCall($(this).data("playerId"));
   });
 
   $("#cardCounts").on("click", ".howToPlay", function() {
