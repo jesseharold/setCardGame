@@ -17,10 +17,14 @@ If all players agree that there are no SETs on the board, click the black button
 
 This version lets up to six people play at once. 
 
+Features added:
+ - A timer once you hit the set button, you forfeit if you don't click three cards within 5 seconds or something
+ - in-game instructions
+ - on-screen messaging to tell players when they are correct or incorrect about a set
 
 Features I would like to add: 
- - A timer once you hit the set button, you forfeit if you don't click three cards within 5 seconds or something
  - sounds, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
- - training mode, where it tells you why something isn't a set, and will give you a hint if you can't find the set on the table
- - add solo mode where you try and beat a total time to clear the deck - save hi scores in firebase
- - the ability for people to play remotely from different devices - hook it up with firebase's session management, use rock paper scissors project as an example
+ - option to turn off timed mode
+ - option to play in training mode, where it tells you why something isn't a set, and will give you a hint if you can't find the set on the table
+ - option to play in solo mode where you try and beat a total time to clear the deck - save hi scores in firebase
+ - remote mode -- the ability for people to play over the network from different devices - hook it up with firebase's session management, use rock paper scissors project as an example
