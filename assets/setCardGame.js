@@ -4,14 +4,14 @@ var shapes = ["diamond", "oval", "s"];
 var numbers = [1, 2, 3];
 
 var myDeck = [];
-var unshuffledDeck = [];
 var myTable = [];
 var players = [];
-var activePlayer = 10; //zero-indexed
 var testMeForSet = [];
-var baseImgURL = "http://www.kneesandtoes.org/images/setgamecards/";
 var deckIsOut = false;
-var keystrokes = ["Z", "P", "Q", "M", "7", "3"]; //players can hit these instead of clicking button
+var activePlayer = 10; //zero-indexed
+var gameWaitingForSet = false; // what state is game play in? waiting for someone to call a set, or someone is in the process of picking their set?
+var baseImgURL = "http://www.kneesandtoes.org/images/setgamecards/";
+var keystrokes = ["Z", "P", "Q", "M", "7", "3"]; //players can hit these instead of clicking buttons
 var buttoncolors = ["coral", "lightgreen", "#dcdc1e", "#f77474", "lightblue", "violet"]; //
 
 function processPlayerNames() {
@@ -55,7 +55,6 @@ function populateDeck() {
             number: numbers[m],
             id: deckLocation
           }
-          unshuffledDeck.push(newCard);
           myDeck.push(newCard);
           deckLocation++;
         }
@@ -90,6 +89,9 @@ function dealRow() {
   while (myDeck.length > 0 && cardsDealt < 3) {
     myTable.push(myDeck.pop());
     cardsDealt++;
+  }
+  if (myDeck.length <= 0){
+    deckIsOut = true;
   }
   displayTable();
   showCardCounts();
@@ -146,9 +148,9 @@ function guessCard(thisCard){
 }
 
 function doSetCall(pIndex) {
-  //test to make sure gameplay has started
-  if (myTable.length > 7) {
+  if (gameWaitingForSet) {
     activePlayer = pIndex;
+    gameWaitingForSet = false;
     showMessage("SET called by " + players[activePlayer].name, 7000);
   }
 }
@@ -157,6 +159,7 @@ function clearCurrentSet() {
   testMeForSet.length = 0;
   $("#setTable img").removeClass("hilit");
   activePlayer = 10; //default value
+  gameWaitingForSet = true;
 }
 
 function runSetTest(cards) { //returns boolean
@@ -227,7 +230,7 @@ function doFoundaSet(theseThree) {
 }
 
 function doFlubbedaSet(msg) {
-  var reason = msg ? "That is not a valid set."
+  var reason = msg ? msg : "That is not a valid set.";
   if (players[activePlayer].pile.length > 0) {
     showMessage(reason + " You lose one card.");
     myDeck.push(players[activePlayer].pile.pop());
@@ -273,6 +276,7 @@ function checkTableforSets() {
 }
 
 function endOfGame() {
+  gameWaitingForSet = false;
   var winningPlayer = 0;
   var runnerUp = 0;
   for (var j = 1; j < players.length; j++) {
@@ -325,6 +329,7 @@ function addListeners() {
   $("#noSetsButton").click(checkTableforSets);
 
   $("#beginGame").click(function() {
+    gameWaitingForSet = true;
     processPlayerNames();
     $("#instructions").addClass("collapsed");
     $("#noSetsButton").show();
