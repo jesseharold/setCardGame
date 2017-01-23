@@ -121,6 +121,7 @@ function displayTable() {
 function guessCard(thisCard){
     if (!players[activePlayer]) { //check for existence of activeplayer
       showMessage("You have to call a set before clicking on a card.");
+      clearCurrentSet();
     } else {
       if (thisCard.hasClass("hilit")) { // if that card has already been selected
         showMessage("Sorry, you can't un-click a selected card.");
@@ -137,8 +138,8 @@ function guessCard(thisCard){
             doFlubbedaSet();
           }
         } else if (testMeForSet.length > 3) {
-          showMessage("Oops! Something went wrong, please start your set over. : /");
-          clearCurrentSet();
+          //just in case last set didn't get cleared
+          testMeForSet = testMeForSet.slice(3);
         }
       }
     } //check for existence of activeplayer
@@ -216,6 +217,7 @@ function doFoundaSet(theseThree) {
       myTable.splice(b, 1);
     }
   });
+  clearCurrentSet();
   if (myTable.length < 9) { //if there are fewer than 9 cards on table, deal 3
     dealRow();
   } else {
@@ -308,9 +310,7 @@ function addListeners() {
     $("#cardCounts").show();
     $("#playerNames").hide();
     $(this).hide();
-    console.log(myTable.length);
     while (myTable.length < 9){
-      console.log(myTable.length);
       dealRow();
     }
   });
