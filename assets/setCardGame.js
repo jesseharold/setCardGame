@@ -297,7 +297,7 @@ function endOfGame() {
 function showMessage(msg, countdown) {
   var msgbxJ = $("#gameMessageBox").fadeIn();
   msgbxJ.text(msg);
-  console.log(msg);
+  //console.log(msg);
   if (!countdown){
     // just show the message
     setTimeout(function(){
