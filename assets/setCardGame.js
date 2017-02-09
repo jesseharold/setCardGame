@@ -254,7 +254,7 @@ function checkTableforSets() {
           if (c2 > c1 && c3 > c2) { //prevent duplicate tests
             var testThese = [myTable[c1], myTable[c2], myTable[c3]];
             if (runSetTest(testThese)) {
-              showMessage("answer: " + c1 + ", " + c2 + ", " + c3);
+              //console.log("answer: " + c1 + ", " + c2 + ", " + c3);
               foundOne = true;
             }
           }
