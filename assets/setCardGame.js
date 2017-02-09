@@ -10,6 +10,7 @@ var testMeForSet = [];
 var deckIsOut = false;
 var activePlayer = 10; //zero-indexed
 var gameWaitingForSet = false; // what state is game play in? waiting for someone to call a set, or someone is in the process of picking their set?
+var findSetInterval; //countdown for how long you have to find a set after clicking set button
 var baseImgURL = "http://www.kneesandtoes.org/images/setgamecards/";
 var keystrokes = ["Z", "P", "Q", "M", "7", "3"]; //players can hit these instead of clicking buttons
 var buttoncolors = ["coral", "lightgreen", "#dcdc1e", "#f77474", "lightblue", "violet"]; //
@@ -160,6 +161,7 @@ function clearCurrentSet() {
   $("#setTable img").removeClass("hilit");
   activePlayer = 10; //default value
   gameWaitingForSet = true;
+  clearInterval(findSetInterval); // resets the countdown
 }
 
 function runSetTest(cards) { //returns boolean
@@ -305,7 +307,7 @@ function showMessage(msg, countdown) {
     var secondsLeft = parseInt(countdown/1000);
     //show message with a countdown timer
     msgbxJ.append('<div class="countdown"><span class="number">' + secondsLeft + '</span> seconds left...</div>');
-    var findSetInterval = setInterval(function(){
+    findSetInterval = setInterval(function(){
       secondsLeft--;
       msgbxJ.find(".countdown .number").text(secondsLeft);
       if (secondsLeft < 1){
