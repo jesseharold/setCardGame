@@ -1,12 +1,18 @@
- This is a javascript re-creation of my favorite card game, SET!
- http://jesseharold.github.io/setCardGame/
+# SET!
 
+This is a javascript re-creation of my favorite card game, SET!
+You can play online here: 
+http://jesseharold.github.io/setCardGame/
+
+## How to Play
 To play set, you search a grid of face-up cards to try and find a "SET" of three cards before your opponents.
 
+### What is a set?
 A set is three cards that has each card attribute either all the same or all different. Card attributes are: color, shape, number of shapes, and fill.
 
 So, a set could have all red, all diamonds, but 1,2,3 as the numbers, and three different fills. A set can't ever have two greens and one red, or two solid fills and one empty fill. Each feature has to be all the same, or all different.
 
+### Gameplay
 When you see a set of three, shout out "SET!" and hit the button or key associated with your name on the board. Then immediately click on the three cards that make up a SET. You must hit the button to call the set before you click on the cards.
 
 If you're right, you keep the cards and get three points. If you're wrong, you lose one point.
@@ -26,5 +32,6 @@ Features I would like to add:
  - sounds, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
  - option to turn off timed mode
  - option to play in training mode, where it tells you why something isn't a set, and will give you a hint if you can't find the set on the table
- - option to play in solo mode where you try and beat a total time to clear the deck - save hi scores in firebase
- - remote mode -- the ability for people to play over the network from different devices - hook it up with firebase's session management, use rock paper scissors project as an example
+ - rewrite as a an app with a server-side component:
+ - option to play in solo mode where you try and beat a total time to clear the deck - save hi scores in db
+ - remote mode -- the ability for people to play over the network from different devices using sockets
