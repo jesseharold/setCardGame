@@ -29,9 +29,11 @@ Features added:
  - on-screen messaging to tell players when they are correct or incorrect about a set
 
 Features I would like to add: 
+ - use SVGs instead of pngs, have color and number of shapes be passed in to the SVGs as a query string
  - sounds, you can choose your sound effect that plays when you call a set, and it makes a happy noise when you're right and a shameful noise when you're wrong. 
  - option to turn off timed mode
  - option to play in training mode, where it tells you why something isn't a set, and will give you a hint if you can't find the set on the table
  - rewrite as a an app with a server-side component:
  - option to play in solo mode where you try and beat a total time to clear the deck - save hi scores in db
  - remote mode -- the ability for people to play over the network from different devices using sockets
+ - improve UX
