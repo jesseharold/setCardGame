@@ -331,12 +331,10 @@ function changeCardsSize(e){
   var direction = $(e.target).data("direction");
   var currentWidth = parseInt($("#setTable img").css("width"));
   
-  if (currentWidth > minWidth && currentWidth < maxWidth){
-    if (direction == "+"){
-      $("#setTable img").css("width", currentWidth+increment);
-    } else {
-      $("#setTable img").css("width", currentWidth-increment);
-    }
+  if (currentWidth > minWidth && direction == "-"){
+      $("#setTable img").css("width", currentWidth - increment);
+  } else if (currentWidth < maxWidth && direction == "+"){
+      $("#setTable img").css("width", currentWidth + increment);
   }
 }
 
