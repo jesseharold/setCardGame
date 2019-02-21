@@ -323,7 +323,26 @@ function showMessage(msg, countdown) {
   }
 }
 
+function changeCardsSize(e){
+  var minWidth = 100;
+  var maxWidth = 600;
+  var increment = 20;
+  
+  var direction = $(e.target).data("direction");
+  
+  var currentWidth = parseInt($("setTable img").css("width"));
+  if (currentWidth > minWidth && currentWidth < maxWidth){
+    if (direction == "+"){
+      $("setTable img").css("width", currentWidth+increment);
+    } else {
+      $("setTable img").css("width", currentWidth-increment);
+    }
+  }
+}
+
 function addListeners() {
+  $(".changeCardSize").click(changeCardsSize);
+  
   $("#setTable").on("click", "img", function() {
     guessCard($(this));
   });
