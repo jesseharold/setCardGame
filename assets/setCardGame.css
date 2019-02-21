@@ -66,6 +66,15 @@ input {
   font-family: 'Lobster Two', cursive;
   margin: 0;
 }
+.changeCardSize {
+  display: none;
+  float: right;
+  background-color: #edffa1;
+  border: 1px solid green;
+  padding: 3px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 #gameMessageBox {
   background-color: #dacacf;
   color: black;
@@ -117,8 +126,8 @@ input {
   display: none;
 }
 #setTable img {
-  height: 250px;
-  width: auto;
+  height: auto;
+  width: 175px;
   margin: 10px;
   border: 1px solid #999;
   cursor: pointer;
