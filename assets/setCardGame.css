@@ -69,11 +69,13 @@ input {
 .changeCardSize {
   display: none;
   float: right;
-  background-color: #edffa1;
-  border: 1px solid green;
+  background-color: #effac5;
+  border: 1px solid #b4c2b4;
+  color: #555454;
   padding: 3px 6px;
   border-radius: 6px;
   cursor: pointer;
+  margin: 10px;
 }
 #gameMessageBox {
   background-color: #dacacf;
