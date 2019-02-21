@@ -118,7 +118,7 @@ input {
 }
 #setTable img {
   height: 250px;
-  width: 175px;
+  width: auto;
   margin: 10px;
   border: 1px solid #999;
   cursor: pointer;
