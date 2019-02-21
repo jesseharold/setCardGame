@@ -324,8 +324,8 @@ function showMessage(msg, countdown) {
 }
 
 function changeCardsSize(e){
-  var minWidth = 100;
-  var maxWidth = 600;
+  var minWidth = 80;
+  var maxWidth = 350;
   var increment = 10;
   
   var direction = $(e.target).data("direction");
