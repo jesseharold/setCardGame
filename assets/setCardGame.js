@@ -326,16 +326,16 @@ function showMessage(msg, countdown) {
 function changeCardsSize(e){
   var minWidth = 100;
   var maxWidth = 600;
-  var increment = 20;
+  var increment = 10;
   
   var direction = $(e.target).data("direction");
+  var currentWidth = parseInt($("#setTable img").css("width"));
   
-  var currentWidth = parseInt($("setTable img").css("width"));
   if (currentWidth > minWidth && currentWidth < maxWidth){
     if (direction == "+"){
-      $("setTable img").css("width", currentWidth+increment);
+      $("#setTable img").css("width", currentWidth+increment);
     } else {
-      $("setTable img").css("width", currentWidth-increment);
+      $("#setTable img").css("width", currentWidth-increment);
     }
   }
 }
@@ -356,6 +356,7 @@ function addListeners() {
     $("#noSetsButton").show();
     $("#cardCounts").show();
     $("#playerNames").hide();
+    $(".changeCardSize").show();
     $(this).hide();
     while (myTable.length < 9){
       dealRow();
